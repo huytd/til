@@ -188,6 +188,12 @@ We have the **tf-idf** table as follow:
 
 By looking in this table, we know that the sentence is talking about "man"
 
+## Use with Tokenizer
+
+In some complex languages like Vietnamese, a low priority terms not always a word, but a group of words, such as "đây là", "vậy thì", "có thể nói", and some important terms comes in a group of words, which will be meaning less if go alone as well, such as: "cá mập" = "cá" + "mập", "chó đốm" = "chó" + "đốm", "béo phì" = "béo" + "phì", "Ngô Bảo Châu" = "Ngô" + "Bảo" + "Châu",...
+
+So, the approach of calculating **tf-idf** by words count is not correct, we should use a tokenizer to have the correct terms like "Ngô-Bảo-Châu", "cá-mập", "chó-đốm", "đây-là", "trường-hợp", "giao-thông",... 
+
 ## Some good read about TF-IDF
 
 - [Applying TF-IDF algorithm in practice](https://plumbr.eu/blog/programming/applying-tf-idf-algorithm-in-practice)
