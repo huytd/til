@@ -25,7 +25,7 @@ For example: _"The quick brown fox jumps over the lazy dog"_
 | lazy  | 1         |
 | dog   | 1         |
 
-But sometimes, there are words that make no sense but very frequently, like _"the"_, _"is"_, _"a"_,... and those words will lead to the incorrect result. We need to have a factor to filter them. It is **inverse document frequency**
+But not all important words are frequently, like _"the"_, _"is"_, _"a"_,... they appears many times in the corpus. We need to have a factor to filter them. It is **inverse document frequency**
 
 **tf-idf** is the product of these two statistics.
 
@@ -64,9 +64,9 @@ Obtained by **dividing** the **total number of documents** by the **number of do
 ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/ac67bc0f76b5b8e31e842d6b7d28f8949dab7937)
 
 - _N_: total number of documents in corpus (_N_ = |_D_|)
-- |{_d_ ∈ _D_ : _t_ ∈ _d_}|: number of documents where term _t_ appears.
+- _df_<sub>_t_</sub> aka |{_d_ ∈ _D_ : _t_ ∈ _d_}|: number of documents where term _t_ appears.
 
-If term is not found in any document, this will lead to a division-by-zero, so we can adjust it to: **1 + |{_d_ ∈ _D_ : _t_ ∈ _d_}|**
+If term is not found in any document, this will lead to a division-by-zero, so we can adjust it to: 1 + _df_<sub>_t_</sub>
 
 ## Term Frequency-Inverse Document Frequency
 
@@ -80,8 +80,115 @@ To find the most important word in a particular document, we can simply calculat
 
 Since the ratio inside **idf**'s **log** function is always _greater than or equal_ to 1, the value of **idf** is _greater than or equal_ to 0, if we have a common words (which appears in more documents), the ratio in side the **logarithm** approaches 1, taking **idf** closer to 0, so does **tf-idf**.
 
+## Example
+
+We have a corpus of 2 documents (sentences) and the summary term frequency table:
+
+**Document 1:** _"This is a pen and a book"_ - Length = 7
+
+**Document 2:** _"This is a man"_ - Length = 4
+
+| Term  | Frequency |
+|-------|-----------|
+| this  | 2         |
+| is    | 2         |
+| a     | 3         |
+| and   | 1         |
+| pen   | 1         |
+| book  | 1         |
+| man   | 1         |
+
+### Case 1: Find tf-idf of "a"
+
+The calculation of **tf-idf** for the term _"a"_ is performed as:
+
+**Step 1: The term frequency**
+
+In the first document: 
+
+tf("a", _d_<sub>1</sub>) = (occurrence of "a" in d<sub>1</sub>) / (total words in d<sub>1</sub>) = 2 / 7 ≈ 0.28 
+
+In the second document:
+
+tf("a", _d_<sub>2</sub>) = (occurrence of "a" in d<sub>2</sub>) / (total words in d<sub>2</sub>) 1 / 4 = 0.25 
+
+**Step 2: The inverse document frequency**
+
+Given: 
+
+ - N = 2 = number of documents in the corpus
+ - _df_<sub>_"a"_</sub> = 2 = number of documents where "a" appears 
+
+⇒ idf("a", _D_) = log(N / _df_<sub>_"a"_</sub>) = log(2 / 2) = 0
+
+**Step 3: TF-IDF**
+
+So we have the **tf-idf** of "a" in _d_<sub>1</sub> and _d_<sub>2</sub> as follow:
+
+tfidf("a", _d_<sub>1</sub>) = 0.28 * 0 = 0
+
+tfidf("a", _d_<sub>2</sub>) = 0.25 * 0 = 0
+
+### Case 2: Find tf-idf of "man"
+
+The calculation of **tf-idf** for the term _"man"_ is performed as:
+
+**Step 1: The term frequency**
+
+In the first document: 
+
+tf("man", _d_<sub>1</sub>) = (occurrence of "man" in d<sub>1</sub>) / (total words in d<sub>1</sub>) = 0 / 7 = 0 
+
+In the second document:
+
+tf("man", _d_<sub>2</sub>) = (occurrence of "man" in d<sub>2</sub>) / (total words in d<sub>2</sub>) 1 / 4 = 0.25 
+
+**Step 2: The inverse document frequency**
+
+Given: 
+
+ - N = 2 = number of documents in the corpus
+ - _df_<sub>_"man"_</sub> = 1 = number of documents where "man" appears 
+
+⇒ idf("man", _D_) = log(N / _df_<sub>_"man"_</sub>) = log(2) ≈ 0.301 
+
+**Step 3: TF-IDF**
+
+So we have the **tf-idf** of "man" in _d_<sub>1</sub> and _d_<sub>2</sub> as follow:
+
+tfidf("man", _d_<sub>1</sub>) = 0 * 0.301 = 0
+
+tfidf("man", _d_<sub>2</sub>) = 0.25 * 0.301 ≈ 0.075
+
+### What does it mean?
+
+Let's take a look at the summary table:
+
+| Word | Occurrence in corpus | Occurrence in d<sub>1</sub> | Occurrence in d<sub>2</sub> | TF-IDF |
+|------|----------------------|-----------------------------|-----------------------------|--------|
+| a    | 3                    | 2                           | 1                           | 0      |
+| man  | 1                    | 0                           | 1                           | 0.075  |
+
+As we can see, the word "a" is verry common in both documents, that's why its **tf-idf** is very low (equals to 0). 
+
+With the same corpus, the **tf-idf** of "this" and "is" will be the same as "a", so in the sentence:
+
+_"This is a man"_
+
+We have the **tf-idf** table as follow:
+
+| Word | tf-idf |
+|------|--------|
+| this | 0      |
+| is   | 0      |
+| a    | 0      |
+| man  | 0.075  |
+
+By looking in this table, we know that the sentence is talking about "man"
+
 ## Some good read about TF-IDF
 
 - [Applying TF-IDF algorithm in practice](https://plumbr.eu/blog/programming/applying-tf-idf-algorithm-in-practice)
 - [TF-IDF in 10 minutes](http://michaelerasm.us/tf-idf-in-10-minutes/)
 - [Algorithms Every Web Developer Can Read - TF-IDF](https://lizrush.gitbooks.io/algorithms-for-webdevs-ebook/content/chapters/tf-idf.html)
+- [Why IFD is expressed using Logs?](https://irthoughts.wordpress.com/2009/04/15/why-idf-is-expressed-using-logs/)
