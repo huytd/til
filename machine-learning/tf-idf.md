@@ -4,6 +4,8 @@
 
 This post will cover all the theory and mathematics stuff about **tf-idf**, for implementation, please take a look at [Some good read about TF-IDF](some-good-read-about-tf-idf) section.
 
+You can skip the theory stuff and jump directly to the [Example](#example) section to see how to use **tf-idf** in real life.
+
 ---
 
 **tf-idf** is a short form of **term frequency-inverse document frequency**. A number that reflect how important a word is to a document in a collection or corpus.
