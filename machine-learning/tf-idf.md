@@ -74,6 +74,12 @@ Now we know all the terms, so the **tf-idf** will be calculated as:
 
 ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/10109d0e60cc9d50a1ea2f189bac0ac29a030a00)
 
+To find the most important word in a particular document, we can simply calculate the **tf-idf** score for each word in a document, the most higher score is the most important.
+
+## How Inverse Document Frequency filter out common words?
+
+Since the ratio inside **idf**'s **log** function is always _greater than or equal_ to 1, the value of **idf** is _greater than or equal_ to 0, if we have a common words (which appears in more documents), the ratio in side the **logarithm** approaches 1, taking **idf** closer to 0, so does **tf-idf**.
+
 ## Some good read about TF-IDF
 
 - [Applying TF-IDF algorithm in practice](https://plumbr.eu/blog/programming/applying-tf-idf-algorithm-in-practice)
