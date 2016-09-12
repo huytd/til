@@ -1,6 +1,6 @@
 # Reverse Proxy with SSH Tunnel
 
-The goal is setting up a revserse proxy to expose your `localhost` application to the internet via a public server. The same goal as `[ngrok](https://ngrok.com)` or `[PageKite](https://pagekite.net)` offering.
+The goal is setting up a revserse proxy to expose your `localhost` application to the internet via a public server. The same goal as [`ngrok`](https://ngrok.com) or [`PageKite`](https://pagekite.net) offering.
 
 What you need is:
 - A server that can be access from the internet (get one at DigitalOcean, Linode or AWS EC2)
