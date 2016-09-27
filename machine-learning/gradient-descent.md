@@ -10,7 +10,7 @@ Gradient Descent is an algorithm used to optimize the parameters (coefficients) 
 
 The bowl-shape below is the plot of a cost function.
 
-![](https://cdn-images-1.medium.com/max/1600/1*uorFgyflbSMtvfSo9hlI1A.png)
+![](images/gd/gdchart.png)
 
 A random position on the graph is the cost of the current value of the coefficients (θ - theta)
 
@@ -20,7 +20,7 @@ The goal of Gradient Descent algorithm is to try different values of coefficient
 
 ## Gradient Descent Algorithm
 
-![](https://queenscompsci.files.wordpress.com/2016/02/image-v0kzcy.png)
+![](images/gd/gdchart_run.png)
 
 The Gradient Descent Algorithm is very simple: 
 
@@ -41,7 +41,7 @@ You may noticed the `learningRate` in the algorithm described above. This value 
 
 The value of `learningRate` here must be chosen wisely to get more accurate changes for `θ`.
 
-![](learningRate.gif)
+![](images/gd/learningRate.gif)
 
 If `learningRate` is too large, chances the Gradient Descent Algorithm will skip the minimum value of cost function, which will lead to inaccurate model.
 
@@ -52,7 +52,6 @@ If `learningRate` is too small, the Gradient Descent Algorithm will be slow as w
 In this section, we will see how Gradient Descent applied to solve real world machine learning problem: Linear Regession, Non-Linear Regression and Neural Network.
 
 ## Linear Regression
-(TBD)
 
 ## Non-Linear Regression
 (TBD)
