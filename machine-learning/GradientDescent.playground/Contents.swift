@@ -16,6 +16,7 @@ func costFunction(theta: [Double], x: [Double], y: [Double]) -> Double {
     return sum / (2 * Double(m))
 }
 
+var batchCost = 0.0
 func batchGradientDescent(steps: Int, x: [Double], y: [Double], learningRate: Double) -> [Double] {
     var theta = [0.0, 0.0]
     for _ in 0..<steps {
@@ -27,10 +28,12 @@ func batchGradientDescent(steps: Int, x: [Double], y: [Double], learningRate: Do
             }
             theta[j] = theta[j] - learningRate * (1.0/Double(x.count)) * sum
         }
+        batchCost = costFunction(theta: theta, x: x, y: y)
     }
     return theta
 }
 
+var stosCost = 0.0
 func stochasticGradientDescent(steps: Int, x: [Double], y: [Double], learningRate: Double) -> [Double] {
     var theta = [0.0, 0.0]
     for _ in 0..<steps {
@@ -39,6 +42,7 @@ func stochasticGradientDescent(steps: Int, x: [Double], y: [Double], learningRat
             for j in 0..<theta.count {
                 theta[j] = theta[j] - learningRate * ((h(x[i]) - y[i]) * x[j])
             }
+            stosCost = costFunction(theta: theta, x: x, y: y)
         }
     }
     return theta
@@ -51,16 +55,16 @@ let predictThetaWithBatchGD = batchGradientDescent(steps: 1000, x: dataX, y: dat
 print("Batch Gradient Descent Training: ", predictThetaWithBatchGD)
 
 let ageWeightPredict = hypothesisFunction(theta: predictThetaWithBatchGD)
-
+var weightBatch = 0.0
 for age in 1..<10 {
-    print("Age = \(age), Weight = ", ageWeightPredict(Double(age)))
+    weightBatch = ageWeightPredict(Double(age))
 }
 
 let predictThetaWithStochasticGD = stochasticGradientDescent(steps: 1000, x: dataX, y: dataY, learningRate: 0.01)
 print("Stochastic Gradient Descent Training: ", predictThetaWithStochasticGD)
-
+var weightStos = 0.0
 let ageWeightPredictS = hypothesisFunction(theta: predictThetaWithStochasticGD)
 
 for age in 1..<10 {
-    print("Age = \(age), Weight = ", ageWeightPredictS(Double(age)))
+    weightStos = ageWeightPredictS(Double(age))
 }

@@ -154,7 +154,13 @@ Age = 6, Weight =  5.56772334293948
 Age = 7, Weight =  6.4236311239193
 Age = 8, Weight =  7.27953890489913
 Age = 9, Weight =  8.13544668587895
+```
 
+The graph below show how the **cost** changes during the progress of **Batch Gradient Descent**
+
+![](images/gd/batchGradientDescentCost.png)
+
+```
 Stochastic Gradient Descent Training:  [0.42857142857142855, 0.8571428571428571]
 Age = 1, Weight =  1.28571428571429
 Age = 2, Weight =  2.14285714285714
@@ -167,4 +173,8 @@ Age = 8, Weight =  7.28571428571429
 Age = 9, Weight =  8.14285714285714
 ```
 
-Which show the result `theta` array for each algorithm, and the next 9 lines is the prediction using these thetas.
+And this graph show how the **cost** changes during the progress of **Stochastic Gradient Descent**
+
+![](images/gd/stochasticGradientDescentCost.png)
+
+Based on these graphs, we see that **SGD** algorithm help the **cost function** reachs its minimum faster than **BGD** algorithm.
