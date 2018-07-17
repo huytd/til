@@ -1,5 +1,9 @@
 # Setup ArchLinux on Qemu and solve network problem
 
+```
+qemu-system-x86_64 -boot d -cdrom image.iso -m 512 -hda mydisk.img
+```
+
 If you are installing ArchLinux on Qemu, you may experience some networking problem such as losing internet connection after installed.
 
 The simple way to fix it is, boot the Qemu machine with `-net nic -net user` parameter and start the network devices manually in Arch.
