@@ -1,5 +1,13 @@
 # Setup ArchLinux on Qemu and solve network problem
 
+Create disk image:
+
+```
+qemu-img create mydisk.img 10G
+```
+
+Start qemu with iso file and disk image as hdd:
+
 ```
 qemu-system-x86_64 -boot d -cdrom image.iso -m 512 -hda mydisk.img
 ```
